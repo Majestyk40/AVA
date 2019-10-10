@@ -33,8 +33,9 @@ import org.apache.commons.lang3.StringUtils;
 
 public class MainActivity extends AppCompatActivity {
 
+    //////// START OF VOICE RECOGNITION CODE
     private static final int RECORD_REQUEST_CODE = 101;
-    
+
     private static final String TAG = MainActivity.class.getName();
 
     // WakeLock pour garder l'OS éveillé
@@ -67,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
 
     TextView tvWakeUp;
     Switch modeEcoute;
+    //////// END OF VOICE RECOGNITION CODE
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +76,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         setTitle("AVA > Your Awesome Virtual Agent");
 
+        //////// START OF VOICE RECOGNITION CODE
         int permission = ContextCompat.checkSelfPermission(this,
                 Manifest.permission.RECORD_AUDIO);
 
@@ -83,12 +86,13 @@ public class MainActivity extends AppCompatActivity {
         }
 
         tvWakeUp = findViewById(R.id.tv_ecoute);
-
         requestSpeechRec = SpeechRecognizer.createSpeechRecognizer(this);
-        dateSpeechRec = SpeechRecognizer.createSpeechRecognizer(this);
+        //////// END OF VOICE RECOGNITION CODE
+
 
     }
 
+    //////// START OF VOICE RECOGNITION CODE
     private void speechRec(){
         mSpeechRecognizer = SpeechRecognizer.createSpeechRecognizer(MainActivity.this);
         SpeechListener mRecognitionListener = new SpeechListener();
@@ -248,7 +252,6 @@ public class MainActivity extends AppCompatActivity {
         return retString;
     }
 
-
     // MODE DE RECONNAISSANCE VOCALE SANS GOOGLE DIALOG
     private void initRequestRecognizer() {
         Intent intentA = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
@@ -310,10 +313,13 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+    // FIN MODE DE RECONNAISSANCE VOCALE SANS GOOGLE DIALOG
 
     protected void makeRequest() {
         ActivityCompat.requestPermissions(this,
                 new String[]{Manifest.permission.RECORD_AUDIO},
                 RECORD_REQUEST_CODE);
     }
+    //////// END OF VOICE RECOGNITION CODE
+
 }
